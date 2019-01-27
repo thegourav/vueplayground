@@ -1,3 +1,7 @@
+
+# vueplayground
+this is just a vue.js application playground
+
 # my-todo
 
 ## Project setup
@@ -27,3 +31,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
