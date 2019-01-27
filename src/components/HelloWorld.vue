@@ -1,42 +1,53 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+<section class="todo">
+  <h1>My TO DO APP</h1>
+  <hr>
+  <input type="text" class="todobox" autocomplete="off" autofocus
+  placeholder="add your todo task here" v-model="newTodo" @keyup.enter="addTodo" />
+  <section v-show= "todoList.length" class="list-main">
+   <ul class="todo-list">
+      <li v-for="item in todoList">
+        <div>
+          <input class="toggle" type="checkbox">
+          <label>{{ item.name }}</label>
+          <button class="destroy">X</button>
+        </div>
+      </li>
+   </ul>
+    
+  </section>
+</section>
 </template>
 
 <script>
+let counter = 0;
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data() {
+    return {
+          todoList : [],
+          newTodo : '',
+    }
+  },
+  methods: {
+    addTodo(){
+      let value = this.newTodo && this.newTodo.trim();
+      if (!value)
+          return;
+      this.todoList.push({
+        id:counter++,
+        name: value,
+        completed : false
+      });
+      this.newTodo = "";
+    }
   }
 }
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -49,10 +60,16 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block;
+  display: block;
   margin: 0 10px;
 }
 a {
   color: #42b983;
+}
+.todobox {
+width: 300px;
+height: 50px;
+padding: 0 15px;
+font-size: 20px;
 }
 </style>
